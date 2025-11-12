@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [billAmount, setBillAmount] = useState("");
-  const [tipPercentage, setTipPercentage] = useState(15);
-  const [tipAmount, setTipAmount] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
+  // Estados tipados
+  const [billAmount, setBillAmount] = useState<string>("");
+  const [tipPercentage, setTipPercentage] = useState<number>(15);
+  const [tipAmount, setTipAmount] = useState<number>(0);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  const handleCalculate = () => {
+  const handleCalculate = (): void => {
     const bill = parseFloat(billAmount);
     if (isNaN(bill) || bill <= 0) {
       setErrorMessage("Ingrese un monto válido mayor que 0.");
@@ -27,8 +28,7 @@ export default function App() {
       <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
         <h1 className="text-2xl font-bold mb-4 text-center">Calculadora de Propinas</h1>
 
-        {/*monto*/}
-        <label className="block mb-2 font-semibold">Monto total de la cuenta a pagar:</label>
+        <label className="block mb-2 font-semibold">Monto de la cuenta:</label>
         <input
           type="number"
           placeholder="Ej. 500"
@@ -37,7 +37,6 @@ export default function App() {
           className="w-full border rounded p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/*Porcentaje */}
         <label className="block mb-2 font-semibold">Porcentaje de propina:</label>
         <div className="flex justify-between mb-4">
           {[10, 15, 20].map((percent) => (
@@ -55,7 +54,6 @@ export default function App() {
           ))}
         </div>
 
-        {/* Botn de calcular */}
         <button
           onClick={handleCalculate}
           className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4"
@@ -63,14 +61,12 @@ export default function App() {
           Calcular
         </button>
 
-        {/* Alertas */}
         {errorMessage && (
           <div className="bg-red-100 text-red-800 p-2 rounded mb-4">
             {errorMessage}
           </div>
         )}
 
-        {/* Resultados */}
         {tipAmount > 0 && (
           <div className="bg-blue-100 text-blue-800 p-4 rounded">
             <p>Propina: L. {tipAmount.toFixed(2)}</p>
